@@ -1,0 +1,28 @@
+
+server:
+  port: ${PORT:8762}
+  
+spring:
+  application:
+    name: apiGetaway-service
+    
+zuul:
+  ignored-services: '*'
+  routes:
+    produit-service:
+      path: /api/produit/**
+      service-id: produit-sevice
+      strip-prefix: false
+    shoppingList-service:
+      path: /api/shoppinglist/**
+      service-id: shoppingList-service
+      strip-prefix: false
+      
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url.defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    
